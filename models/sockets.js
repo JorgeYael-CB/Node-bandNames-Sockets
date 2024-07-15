@@ -26,6 +26,11 @@ class Sockets {
                 this.bandList.removeBand(id);
                 this.io.emit('current-bands', this.bandList.getBands() );
             })
+
+            socket.on('change-name-band', (data) => {
+                this.bandList.changeBandName(data.name, data.id)
+                this.io.emit('current-bands', this.bandList.getBands() );
+            })
         });
     }
 
