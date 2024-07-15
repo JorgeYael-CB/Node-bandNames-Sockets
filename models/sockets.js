@@ -16,6 +16,16 @@ class Sockets {
 
             // Emitir al cliente conectado, todas las bandas actuales.
             socket.emit('current-bands', this.bandList.getBands() );
+
+            socket.on('votar-banda', (id) => {
+                this.bandList.increseVotes( id )
+                this.io.emit('current-bands', this.bandList.getBands() );
+            })
+
+            socket.on('delete-band', ( id ) => {
+                this.bandList.removeBand(id);
+                this.io.emit('current-bands', this.bandList.getBands() );
+            })
         });
     }
 
